@@ -64,7 +64,7 @@ export const CustomTextInput: FunctionComponent<
           }}
           placeholder={placeholder}
           placeholderTextColor={placeholderTextColor}
-        //   onChangeText={text => onChange(replaceInitialZero(text)?.trimStart())}
+          onChangeText={text => onChange((text)?.trimStart())}
           value={value}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}

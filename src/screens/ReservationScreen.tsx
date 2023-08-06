@@ -5,11 +5,28 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {CustomTextInput} from '../components/InputField';
 import {AppButton} from '../components/AppButton';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '../app/store';
+import {addReservation} from '../app/features/ReservationSlice';
+import ReservationActions from '../components/ReservationActions';
 
 const ReservationScreen = () => {
+  const dispatch = useDispatch();
+  const [newReservation, setNewReservation] = useState<string>('');
+  const reservations = useSelector(
+    (state: RootState) => state.reservation.value,
+  );
+  // console.log('reservations', reservations);
+
+  const AddReservation = () => {
+    console.log('reservations', reservations, newReservation);
+    if (!newReservation) return;
+    dispatch(addReservation(newReservation));
+  };
+
   return (
     <KeyboardAvoidingView
       style={{
@@ -26,12 +43,23 @@ const ReservationScreen = () => {
           flexDirection: 'column',
           marginHorizontal: 16,
         }}>
-        <Text style={{color: 'black', fontSize: 20, marginTop: '10%'}}>
-          
-        </Text>
         <View>
-          <CustomTextInput onChange={undefined} />
-          <AppButton text="Add Reservation" />
+          <Text style={{color: 'black', fontSize: 20, marginTop: '10%'}}>
+            Under Reservation
+          </Text>
+          {reservations.map((item, index) => (
+            <ReservationActions item={item} index={index} />
+          ))}
+        </View>
+        <View>
+          <CustomTextInput onChange={setNewReservation} />
+          <AppButton
+            buttonProps={{
+              style: {marginTop:10},
+              onPress: AddReservation,
+            }}
+            text="Add Reservation"
+          />
         </View>
       </SafeAreaView>
     </KeyboardAvoidingView>

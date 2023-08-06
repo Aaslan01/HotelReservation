@@ -22,6 +22,8 @@ const Stack = createNativeStackNavigator();
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import ReservationScreen from './src/screens/ReservationScreen';
 import OrderScreen from './src/screens/OrderScreen';
+import { Provider } from 'react-redux';
+import { store } from './src/app/store';
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -30,22 +32,24 @@ function App(): JSX.Element {
   };
 
   return (
-    <NavigationContainer>
-      {
-        <Stack.Navigator initialRouteName="ReservationScreen">
-          <Stack.Screen
-            name="ReservationScreen"
-            component={ReservationScreen}
-            options={{headerTitle: 'Reservation'}}
-          />
-          <Stack.Screen
-            name="OrderScreen"
-            component={OrderScreen}
-            options={{header: () => null}}
-          />
-        </Stack.Navigator>
-      }
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        {
+          <Stack.Navigator initialRouteName="ReservationScreen">
+            <Stack.Screen
+              name="ReservationScreen"
+              component={ReservationScreen}
+              options={{headerTitle: 'Reservation'}}
+            />
+            <Stack.Screen
+              name="OrderScreen"
+              component={OrderScreen}
+              options={{header: () => null}}
+            />
+          </Stack.Navigator>
+        }
+      </NavigationContainer>
+    </Provider>
   );
 }
 

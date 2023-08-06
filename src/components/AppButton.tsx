@@ -45,7 +45,6 @@ export function AppButton({
       disabled={btnDisabled}
       style={[
         {
-          marginTop: 10,
           alignItems: 'center',
           justifyContent: 'center',
           borderRadius: 8,
@@ -62,7 +61,7 @@ export function AppButton({
             {
               textTransform: 'uppercase',
               fontSize: 14,
-              fontFamily: 'Poppins-SemiBold',
+              fontFamily: 'Poppins-Bold',
               color: '#fff',
             },
             // {...innerTextProps},
